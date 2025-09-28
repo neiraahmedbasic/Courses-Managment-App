@@ -1,0 +1,81 @@
+<div class="course-management">
+
+  <div class="top-bar">
+    <div class="lang-switch">
+      <button (click)="switchLang('en')">English</button>
+      <button (click)="switchLang('bs')">Bosanski</button>
+    </div>
+  </div>
+
+
+  <section class="filter-section">
+    <h2>{{ translations[currentLang].filterCourses }}</h2>
+    <input type="text"
+           [placeholder]="translations[currentLang].courseName + '...'"
+           [(ngModel)]="filterName">
+
+    <select [(ngModel)]="filterDepartment">
+      <option value="">{{ translations[currentLang].allDepartments }}</option>
+      <option>{{ translations[currentLang].hr }}</option>
+      <option>{{ translations[currentLang].managers }}</option>
+      <option>{{ translations[currentLang].developers }}</option>
+      <option>{{ translations[currentLang].administrators }}</option>
+    </select>
+
+    <select [(ngModel)]="filterClassification">
+      <option value="">{{ translations[currentLang].allClassifications }}</option>
+      <option>{{ translations[currentLang].softSkills }}</option>
+      <option>{{ translations[currentLang].technical }}</option>
+      <option>{{ translations[currentLang].business }}</option>
+    </select>
+  </section>
+
+  <hr>
+
+
+  <section class="form-section">
+    <h2>{{ translations[currentLang].createUpdate }}</h2>
+
+    <label>{{ translations[currentLang].courseName }} *</label>
+    <input type="text" [(ngModel)]="newCourse.name" required>
+
+    <label>{{ translations[currentLang].classification }} *</label>
+    <select [(ngModel)]="newCourse.classification" required>
+      <option value="">{{ translations[currentLang].select }}</option>
+      <option>{{ translations[currentLang].softSkills }}</option>
+      <option>{{ translations[currentLang].technical }}</option>
+      <option>{{ translations[currentLang].business }}</option>
+    </select>
+
+    <label>{{ translations[currentLang].department }} *</label>
+    <select [(ngModel)]="newCourse.department" required>
+      <option value="">{{ translations[currentLang].select }}</option>
+      <option>{{ translations[currentLang].hr }}</option>
+      <option>{{ translations[currentLang].managers }}</option>
+      <option>{{ translations[currentLang].developers }}</option>
+      <option>{{ translations[currentLang].administrators }}</option>
+    </select>
+
+    <label>{{ translations[currentLang].participants }}</label>
+    <input type="number" [(ngModel)]="newCourse.participants">
+
+    <div class="form-buttons">
+      <button (click)="saveCourse()">{{ translations[currentLang].save }}</button>
+      <button (click)="resetForm()">{{ translations[currentLang].cancel }}</button>
+    </div>
+  </section>
+
+  <hr>
+
+
+  <section class="list-section">
+    <h2>{{ translations[currentLang].coursesOverview }}</h2>
+    <ul>
+      <li *ngFor="let c of filteredCourses">
+        <strong>{{ c.name }}</strong> - {{ c.classification }} - {{ c.department }}
+        ({{ c.participants }} {{ translations[currentLang].participants }})
+      </li>
+    </ul>
+  </section>
+
+</div>

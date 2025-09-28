@@ -1,0 +1,24 @@
+<div class="home-container">
+  <div class="language-toggle">
+    <button (click)="toggleLanguage()">
+      {{ isEnglish ? 'BS' : 'EN' }}
+    </button>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <img src="/administration.jpg" alt="Administration">
+      <h3>{{ isEnglish ? 'Administration' : 'Administracija' }}</h3>
+    </div>
+
+    <div class="card">
+      <img src="/course-management.jpg" alt="Course Management">
+      <h3>{{ isEnglish ? 'Course Management' : 'Upravljanje kursevima' }}</h3>
+    </div>
+
+    <div class="card">
+      <img src="/course-overview.jpg" alt="Course Overview">
+      <h3>{{ isEnglish ? 'Course Overview' : 'Pregled kurseva' }}</h3>
+    </div>
+  </div>
+</div>

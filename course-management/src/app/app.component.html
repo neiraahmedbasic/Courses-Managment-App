@@ -1,0 +1,59 @@
+<div class="app-container">
+  <header class="header">
+    <button class="hamburger" (click)="toggleMenu()">☰</button>
+    <h2 class="title">{{ translations[selectedLanguage].coursesApp }}</h2>
+    <div class="right-controls">
+      <div class="user-icon" (click)="toggleUserMenu()">👤</div>
+    </div>
+  </header>
+
+  <div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()"></div>
+
+  <nav class="sidebar" [class.open]="menuOpen">
+    <button class="close-btn" (click)="toggleMenu()">×</button>
+    <ul>
+      <li routerLink="/" routerLinkActive="active" (click)="toggleMenu()">🏠 {{ translations[selectedLanguage].home }}</li>
+      <li routerLink="/administration" routerLinkActive="active" (click)="toggleMenu()">👤 {{ translations[selectedLanguage].administration }}</li>
+      <li routerLink="/course-management" routerLinkActive="active" (click)="toggleMenu()">📚 {{ translations[selectedLanguage].courseManagement }}</li>
+      <li routerLink="/course-overview" routerLinkActive="active" (click)="toggleMenu()">📖 {{ translations[selectedLanguage].courseOverview }}</li>
+      <li routerLink="/course-detail" routerLinkActive="active" (click)="toggleMenu()">🔎 {{ translations[selectedLanguage].courseDetail }}</li>
+    </ul>
+  </nav>
+
+  <div class="user-menu" *ngIf="userMenuOpen">
+    <p class="welcome" *ngIf="!isLoggedIn"><strong>{{ translations[selectedLanguage].welcomeUser }}</strong></p>
+    <p class="welcome" *ngIf="isLoggedIn"><strong>{{ translations[selectedLanguage].helloAdmin }}</strong></p>
+    <hr>
+
+    <div class="language-switch">
+      <label>
+        <input type="radio" name="lang" value="en" [(ngModel)]="selectedLanguage" (change)="changeLanguage('en')" checked> English
+      </label>
+      <label>
+        <input type="radio" name="lang" value="bs" [(ngModel)]="selectedLanguage" (change)="changeLanguage('bs')"> Bosanski
+      </label>
+    </div>
+    <hr>
+
+    <div *ngIf="!isLoggedIn" class="login-form">
+      <div *ngIf="loginError" class="error">{{ loginError }}</div>
+      <form (ngSubmit)="login()">
+        <label>{{ translations[selectedLanguage].username }}:
+          <input type="text" [(ngModel)]="loginData.username" name="username" required>
+        </label>
+        <label>{{ translations[selectedLanguage].password }}:
+          <input type="password" [(ngModel)]="loginData.password" name="password" required>
+        </label>
+        <button type="submit">{{ translations[selectedLanguage].login }}</button>
+      </form>
+    </div>
+
+    <div *ngIf="isLoggedIn">
+      <button (click)="logout()">{{ translations[selectedLanguage].logout }}</button>
+    </div>
+  </div>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

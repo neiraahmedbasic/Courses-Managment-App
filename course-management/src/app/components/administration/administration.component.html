@@ -1,0 +1,75 @@
+<div class="admin-container">
+
+
+  <div class="admin-header">
+    <h1>{{ translations[currentLang].title }}</h1>
+
+
+    <div class="lang-switch">
+      <button (click)="changeLang('en')">English</button>
+      <button (click)="changeLang('bs')">Bosanski</button>
+    </div>
+  </div>
+
+
+  <button class="create-btn" (click)="openCreateDialog()">
+    {{ translations[currentLang].createNewUser }}
+  </button>
+
+  <!-- Novi korisnik -->
+  <div class="dialog" *ngIf="showCreateDialog">
+    <h3>{{ translations[currentLang].createNewUser }}</h3>
+    <label>
+      {{ translations[currentLang].firstName }}:
+      <input type="text" [(ngModel)]="newUser.firstName" required>
+    </label>
+    <label>
+      {{ translations[currentLang].lastName }}:
+      <input type="text" [(ngModel)]="newUser.lastName" required>
+    </label>
+    <div class="dialog-actions">
+      <button (click)="saveUser()">{{ translations[currentLang].save }}</button>
+      <button (click)="cancelCreate()">{{ translations[currentLang].cancel }}</button>
+    </div>
+  </div>
+
+
+  <div class="dialog" *ngIf="editUser">
+    <h3>{{ translations[currentLang].editUser }}</h3>
+    <label>
+      {{ translations[currentLang].firstName }}:
+      <input type="text" [(ngModel)]="editUser.firstName" required>
+    </label>
+    <label>
+      {{ translations[currentLang].lastName }}:
+      <input type="text" [(ngModel)]="editUser.lastName" required>
+    </label>
+    <div class="dialog-actions">
+      <button (click)="saveEdit()">{{ translations[currentLang].save }}</button>
+      <button (click)="cancelEdit()">{{ translations[currentLang].cancel }}</button>
+    </div>
+  </div>
+
+
+  <table class="users-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>{{ translations[currentLang].firstName }}</th>
+      <th>{{ translations[currentLang].lastName }}</th>
+      <th>{{ translations[currentLang].actions }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>
+        <button class="edit-btn" (click)="edit(user)">✏️</button>
+        <button class="delete-btn" (click)="delete(user)">🗑️</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

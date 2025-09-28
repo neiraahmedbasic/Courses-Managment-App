@@ -1,0 +1,50 @@
+<div class="course-overview-container">
+
+  <div class="language-select-wrapper">
+    <label for="lang-select">Language:</label>
+    <select id="lang-select" [(ngModel)]="selectedLang" (change)="onLangChange($event)">
+      <option value="en">English</option>
+      <option value="bs">Bosanski</option>
+    </select>
+  </div>
+
+  <h2>Course Overview</h2>
+
+  <div class="controls">
+    <button (click)="showAllCourses()" class="show-btn">
+      {{ translations[selectedLang].showAll }}
+    </button>
+
+    <div class="search-wrapper">
+      <input type="text" [placeholder]="translations[selectedLang].searchPlaceholder" [(ngModel)]="searchTerm" />
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="courses-table">
+      <thead>
+      <tr>
+        <th>{{ translations[selectedLang].courseName }}</th>
+        <th>{{ translations[selectedLang].classification }}</th>
+        <th>{{ translations[selectedLang].department }}</th>
+        <th>{{ translations[selectedLang].participantGroup }}</th>
+        <th>{{ translations[selectedLang].numberOfParticipants }}</th>
+        <th>{{ translations[selectedLang].actions }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let course of filteredCourses()">
+        <td>{{ selectedLang === 'en' ? course.nameEn : course.nameBs }}</td>
+        <td>{{ selectedLang === 'en' ? course.classificationEn : course.classificationBs }}</td>
+        <td>{{ selectedLang === 'en' ? course.departmentEn : course.departmentBs }}</td>
+        <td>{{ selectedLang === 'en' ? course.participantGroupEn : course.participantGroupBs }}</td>
+        <td>{{ course.numberOfParticipants }}</td>
+        <td>
+          <button (click)="deleteCourse(course.id)" class="delete-btn">🗑️</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

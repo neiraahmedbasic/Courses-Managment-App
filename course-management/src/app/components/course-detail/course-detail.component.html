@@ -1,0 +1,75 @@
+<div class="course-detail">
+
+  <!-- Top bar: Back + Language -->
+  <div class="top-bar">
+    <button class="back-btn" (click)="goBack()">{{ labels[currentLang].backBtn }}</button>
+
+    <div class="lang-toggle">
+      <button (click)="changeLang('en')">EN</button>
+      <button (click)="changeLang('bs')">BS</button>
+    </div>
+  </div>
+
+  <!-- Top section: Course info, Participants, Files -->
+  <div class="top-section">
+
+    <section class="card">
+      <h2>{{ labels[currentLang].courseInfoTitle }}</h2>
+      <p><strong>{{ labels[currentLang].courseNameLabel }}</strong> {{ course.name }}</p>
+      <p><strong>{{ labels[currentLang].departmentLabel }}</strong> {{ course.department }}</p>
+      <p><strong>{{ labels[currentLang].groupLabel }}</strong> {{ course.group }}</p>
+    </section>
+
+    <section class="card">
+      <h2>{{ labels[currentLang].participantsTitle }}</h2>
+      <ul>
+        <li *ngFor="let p of course.participants; let i = index">
+          {{ p }}
+          <button class="delete-btn" (click)="removeParticipant(i)">✖</button>
+        </li>
+      </ul>
+      <div class="input-group">
+        <input type="text"
+               [(ngModel)]="newParticipant"
+               [placeholder]="labels[currentLang].newParticipantPlaceholder" />
+        <button (click)="addParticipant()">{{ labels[currentLang].addBtn }}</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>{{ labels[currentLang].filesTitle }}</h2>
+      <ul>
+        <li *ngFor="let doc of documents">{{ doc }}</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- Bottom section: Photos & Upload Document -->
+  <div class="bottom-section">
+
+    <section class="card">
+      <h2>{{ labels[currentLang].uploadPhotoTitle }}</h2>
+      <ul>
+        <li *ngFor="let photo of photos">{{ photo }}</li>
+      </ul>
+      <div class="input-group">
+        <input type="file" (change)="onPhotoSelected($event)" accept="image/*" />
+        <button (click)="addPhoto()">{{ labels[currentLang].uploadPhotoBtn }}</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>{{ labels[currentLang].uploadDocTitle }}</h2>
+      <ul>
+        <li *ngFor="let doc of documents">{{ doc }}</li>
+      </ul>
+      <div class="input-group">
+        <input type="file" (change)="onDocSelected($event)" />
+        <button (click)="addDocument()">{{ labels[currentLang].uploadDocBtn }}</button>
+      </div>
+    </section>
+
+  </div>
+
+</div>
